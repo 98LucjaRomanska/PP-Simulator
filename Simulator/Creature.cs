@@ -86,7 +86,30 @@ public class Creature
     {
         if (level < 10) { level += 1; }
     }
+
+    private string x;
+    public void Go(string dir1) 
+    {
+        Direction[] newDirect = DirectionParser.Parse(dir1);
+        Go(newDirect);
+
+    }
     
+    public void Go(Direction dir2) //zmienna typu Direction
+    {
+        
+        string floor = dir2.ToString().ToLower();
+        Console.WriteLine($"{Name} goes {floor}");
+
+    }
+    public void Go(Direction[] directions) //tablica ze zmiennymi typu Direction
+    {
+        for (int i = 0; i < directions.Length; i++)
+        {
+            string floor = directions[i].ToString().ToLower();
+            Console.WriteLine($"{Name} goes {floor}");
+        }
+    }
 
 
 
