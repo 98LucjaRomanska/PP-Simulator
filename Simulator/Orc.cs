@@ -14,11 +14,7 @@ namespace Simulator
         public int Rage
         {
             get { return rage; }
-            init 
-            { 
-                if (value < 0) { rage = 0; }
-                else if (value > 10) { rage = 10; }
-            }
+            init { rage = Validator.Limiter(value, 0, 10); }
         }
 
         private bool _isHuntCalled = false;
@@ -27,30 +23,43 @@ namespace Simulator
         {
             _isHuntCalled = true;
             counter++;
-            if(counter%2 == 0)
+            if(counter%2 == 0 && rage < 10)
             {
                 rage++;
-                Console.WriteLine($"Rage increased to {rage} level.");
             }
             _isHuntCalled = false; 
             Console.WriteLine($"{Name} is hunting.");
 
         }
+        public override string Info
+        {
+            get { return $"{Name} [{Level}] [{Rage}]"; }
+        }
+        /*
+        public override String ToString(Creature c)
+        {
+
+            string x = c.GetType().ToString();
+            string[] down_class = x.Split(".");
+            string type = down_class[1].ToUpper();
+            return $"{type} : {c.Info}";
+
+        }*/
 
         //wywołanie konstruktora bazowego i zdefiniowanie własnego klasy pochodnej
         public Orc(string name, int level = 1, int rage = 1) : base(name, level)
         {
             Rage = rage;
         }
-        //public Orc() : base() { }
+        public Orc() : base() { }
 
         //wywołanie konstruktora bazowego przez base() - konstruktor bezparametrowy
-        public Orc() : base("Unknown", 1) { }
+        //public Orc() : base("Unknown", 1) { }
 
         //nadpisanie metody wirtualnej
         public override void SayHi()
         {
-            Console.WriteLine(
+        Console.WriteLine(
         $"Hi, I'm {Name}, my level is {Level}, my rage is {Rage}.");
         }
 
@@ -59,17 +68,8 @@ namespace Simulator
         {
             get
             {
-                if (Level == 0 && Rage == 0)
-                {
-                    power = 0;
-                    return power;
-                }
-                else
-                {
-                    power = 7 * Level + 3 * Rage;
-                    return power;
-                }
-
+                power = 7 * Level + 3 * Rage;
+                return power;
             }
 
         }

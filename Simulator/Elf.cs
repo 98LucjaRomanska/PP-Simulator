@@ -16,17 +16,7 @@ namespace Simulator
         public int Agility
         {
             get => agility;
-            init
-            {
-                if (value< 0) 
-                { 
-                    agility = 1; 
-                }
-                else if (value > 10) 
-                { 
-                    agility = 10; 
-                }
-            }
+            set { agility = Validator.Limiter(value, 0, 10); }
         }
         private bool _isSingCalled = false;
         private int counter = 1;
@@ -34,19 +24,21 @@ namespace Simulator
         {
             _isSingCalled = true;
             counter++;
-            if (counter % 3 == 0)
-            {
-                agility++;
-
-            }
-            _isSingCalled = false;
-             
+            if (counter % 3 == 0) { agility++; _isSingCalled = false; } 
             Console.WriteLine($"{Name} is singing.");
         }
+
         public override void SayHi()
         {
             Console.WriteLine($"Hi, I'm {Name}, my level is {Level}, my agility is {Agility}!");
         }
+
+        public override string Info
+        {
+            get { return $"{Name} [{Level}] [{Agility}]"; }
+        }
+
+
         private int power;
         public override int Power
         {

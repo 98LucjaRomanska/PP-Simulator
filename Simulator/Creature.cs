@@ -11,47 +11,27 @@ public abstract class Creature
 
 
     //konstruktor
-    public Creature(string name, int level = 1)
+     public Creature(string name, int level = 1)
     {
-        Name = name; //initial value
+        Name = name;
         Level = level;
     }
-    public Creature() { } //konstruktor bezparametrowy
-    public string Info //właściwość automatyczna - pole publiczne z get/set
+
+    public Creature() { } 
+    public abstract string Info 
     {
-        get { return $"{Name} [{Level}]"; }
+        get;
     }
-    public abstract void SayHi(); //metoda abstracyjna 
+    public abstract void SayHi(); 
 
-
-
-    //właściwości automatyczne 
     public string Name
     {
-        get { return name; } //name to odwołanie do pola klasy
+        get { return name; } 
         set
         {
-            name = (value ?? "Unknown");
-            name = name.Trim();
-            //?? returns a value of its left hand operand 
-            //if it isn't null
+            name = (value ?? "Unknown").Trim();
+            name = Validator.Shortener(value, 3, 25, '#');
 
-
-            if (name.Length < 3)
-            {
-                for (int i = 0; i < (3 - name.Length); i++)
-                {
-                    name += "#";
-                }
-            }
-            else if (name.Length > 25)
-            {
-                //string name_holder = "";
-                name = name.Substring(0, 25);
-                name = name.TrimEnd();
-                if (name.Length < 3) { name += "#"; }
-
-            }
 
             if (char.IsLower(name[0]))
             {
@@ -68,19 +48,24 @@ public abstract class Creature
         init
         {
             level = value;
-            if (level > 10) { level = 10; }
-            else if (level < 1) { level = 1; }
+            level = Validator.Limiter(value, 1, 10);
         }
     }
     public abstract int Power {get;} //abstract property
    
 
 
-//metoda
-public void Upgrade()
+    //metoda
+    public void Upgrade()
+        {
+            if (level < 10) { level += 1; }
+        }
+
+    public override string ToString()
     {
-        if (level < 10) { level += 1; }
+        return $"{GetType().Name.ToUpper()}: {Info}";
     }
+
 
     //private string x;
     public void Go(string dir1)
