@@ -1,11 +1,9 @@
-﻿using System.Runtime.InteropServices;
-using System.Runtime.Serialization.Formatters;
+﻿using System.Numerics;
 
 namespace Simulator;
 
-public class Creature
+public abstract class Creature
 {
-
 
     //pola
     private string name;
@@ -23,10 +21,8 @@ public class Creature
     {
         get { return $"{Name} [{Level}]"; }
     }
-    public void SayHi() //metoda
-    {
-        Console.WriteLine($"Hi, I'm {Name}, my level is {Level}.");
-    }
+    public abstract void SayHi(); //metoda abstracyjna 
+
 
 
     //właściwości automatyczne 
@@ -67,37 +63,36 @@ public class Creature
 
     }
     public int Level
-    { 
-        get { return level; } 
-        init { level = value;
-            if (level > 10)
-            {
-                level = 10;
-            }
-            else if (level < 1)
-            { 
-                level = 1;
-            }
+    {
+        get { return level; }
+        init
+        {
+            level = value;
+            if (level > 10) { level = 10; }
+            else if (level < 1) { level = 1; }
         }
     }
+    public abstract int Power {get;} //abstract property
+   
 
-    //metoda
-    public void Upgrade()
+
+//metoda
+public void Upgrade()
     {
         if (level < 10) { level += 1; }
     }
 
-    private string x;
-    public void Go(string dir1) 
+    //private string x;
+    public void Go(string dir1)
     {
         Direction[] newDirect = DirectionParser.Parse(dir1);
         Go(newDirect);
 
     }
-    
+
     public void Go(Direction dir2) //zmienna typu Direction
     {
-        
+
         string floor = dir2.ToString().ToLower();
         Console.WriteLine($"{Name} goes {floor}");
 
@@ -110,6 +105,12 @@ public class Creature
             Console.WriteLine($"{Name} goes {floor}");
         }
     }
+    //klasy pochodne tworzymy odwołując się przez : do klasy bazowej
+
+
+
+
+    
 
 
 
