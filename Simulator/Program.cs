@@ -10,8 +10,56 @@ internal class Program
     {
         Console.WriteLine("Starting Simulator!\n");
 
-        Lab4a();
-        Lab4b();
+        //Lab4a();
+        //Lab4b();
+        Lab5a();
+
+    
+
+
+    }
+    static void Lab5a()
+    {
+        Point p = new(10, 25);
+        Console.WriteLine("Next: "+ p.Next(Direction.Right));          // (11, 25)
+        Console.WriteLine("NextDiagonal: "+ p.NextDiagonal(Direction.Right));  // (11, 24)
+
+        try
+        {
+            Rectangle prostokat = new(10, 25, 10, 15);
+            Console.WriteLine(prostokat);
+        }
+        catch (ArgumentException de)
+        {
+            Console.WriteLine($"{de.GetType().Name}: {de.Message}");
+        }
+        //sprawdzenie czy wspołrzędne są przestawiane
+        Rectangle prostokat2 = new(7, 3, 4, 5);
+        Console.WriteLine(prostokat2);
+
+        try
+        {
+            Rectangle prostokat3 = new(25, 10, 5, 10);
+            Console.WriteLine(prostokat3);
+        }
+        catch (ArgumentException de)
+        {
+            Console.WriteLine($"{de.GetType().Name}: {de.Message}");
+
+        }
+        //sprawdzenie bool Contains(Point point)
+        Point p1 = new(10, 25);
+        Point p2 = new(2, 15);
+        Rectangle prostokat4 = new(p1, p2);
+        Console.WriteLine(prostokat4);
+        Point p3 = new(30, 20);
+        Point p4 = new(4, 16);
+        Point p5 = new(60, 25);
+        Console.WriteLine("Sprawdź czy prostokąt zawiera podany punkt");
+        Console.WriteLine($"{p3}: {prostokat4.Contains(p3)}");
+        Console.WriteLine($"{p4}: {prostokat4.Contains(p4)}");
+        Console.WriteLine($"{p5}: {prostokat4.Contains(p5)}");
+
     }
     static void Lab4a()
     {
