@@ -1,4 +1,5 @@
-﻿using System.Net.Security;
+﻿using Simulator.Maps;
+using System.Net.Security;
 using System.Net.WebSockets;
 using System.Xml.Linq;
 
@@ -12,12 +13,51 @@ internal class Program
 
         //Lab4a();
         //Lab4b();
-        Lab5a();
-
+        //Lab5a();
+        Lab5b();
     
 
 
     }
+    static void Lab5b() //map
+    {
+        Point p = new(2, 0);
+        Console.Write("Coordinates of a new map: ");
+        SmallSquareMap firstMap = new(5);
+        Console.WriteLine(firstMap.Size);
+
+        p = firstMap.Next(p,Direction.Up); //(2,1)
+        Console.WriteLine(p);
+        try
+        {
+            p = new(4, 4);
+            p = firstMap.Next(p, Direction.Up);
+            Console.WriteLine(p);
+        }
+        catch(NotImplementedException exc)
+        {   
+                Console.WriteLine(exc.Message);
+        }
+        try
+        {
+            SmallSquareMap secondMap = new(21);
+        }
+        catch (ArgumentOutOfRangeException e)
+        {
+            Console.WriteLine($" {e.Message}");
+        }
+        //sprawdzenie czy Exist działa
+        Console.WriteLine($"Check if point {p} belongs to the map: {firstMap.Exist(p)}");
+        Point pr = new(7, 6);
+        Console.WriteLine($"Check if point {pr} belongs to the map: {firstMap.Exist(pr)}");
+        Point pr2 = new(2, 3);
+        Console.WriteLine($"Check if point {pr2} belongs to the map: {firstMap.Exist(pr2)}");
+        Console.WriteLine(firstMap.NextDiagonal(pr2, Direction.Up));
+        
+
+        
+    }
+
     static void Lab5a()
     {
         Point p = new(10, 25);
