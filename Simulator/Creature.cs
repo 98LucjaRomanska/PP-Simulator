@@ -11,22 +11,22 @@ public abstract class Creature
 
 
     //konstruktor
-     public Creature(string name, int level = 1)
+    public Creature(string name, int level = 1)
     {
         Name = name;
         Level = level;
     }
 
-    public Creature() { } 
-    public abstract string Info 
+    public Creature() { }
+    public abstract string Info
     {
         get;
     }
-    public abstract void SayHi(); 
+    public abstract void SayHi();
 
     public string Name
     {
-        get { return name; } 
+        get { return name; }
         set
         {
             name = (value ?? "Unknown").Trim();
@@ -51,15 +51,15 @@ public abstract class Creature
             level = Validator.Limiter(value, 1, 10);
         }
     }
-    public abstract int Power {get;} //abstract property
-   
+    public abstract int Power { get; } //abstract property
+
 
 
     //metoda
     public void Upgrade()
-        {
-            if (level < 10) { level += 1; }
-        }
+    {
+        if (level < 10) { level += 1; }
+    }
 
     public override string ToString()
     {
@@ -68,27 +68,20 @@ public abstract class Creature
 
 
     //private string x;
-    public void Go(string dir1)
+    public string[] Go(string dir12) => Go(DirectionParser.Parse(dir12));
+
+
+    public string Go(Direction dir2) => $"{dir2.ToString().ToLower()}";
+
+    public string[]  Go(Direction[] directions) //tablica ze zmiennymi typu Direction
     {
-        Direction[] newDirect = DirectionParser.Parse(dir1);
-        Go(newDirect);
+        var result = new string[directions.Length];
 
-    }
-
-    public void Go(Direction dir2) //zmienna typu Direction
-    {
-
-        string floor = dir2.ToString().ToLower();
-        Console.WriteLine($"{Name} goes {floor}");
-
-    }
-    public void Go(Direction[] directions) //tablica ze zmiennymi typu Direction
-    {
         for (int i = 0; i < directions.Length; i++)
         {
-            string floor = directions[i].ToString().ToLower();
-            Console.WriteLine($"{Name} goes {floor}");
+            result[i] = Go(directions[i]);
         }
+        return result; 
     }
     //klasy pochodne tworzymy odwołując się przez : do klasy bazowej
 
