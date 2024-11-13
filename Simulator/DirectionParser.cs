@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 namespace Simulator
 {
-    static class DirectionParser
+    public static class DirectionParser
     {
         public static Direction[] Parse(string x)
         {

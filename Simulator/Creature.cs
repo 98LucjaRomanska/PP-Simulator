@@ -81,6 +81,7 @@ public abstract class Creature
         {
             result[i] = Go(directions[i]);
         }
+
         return result; 
     }
     //klasy pochodne tworzymy odwołując się przez : do klasy bazowej
