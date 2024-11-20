@@ -29,7 +29,7 @@ public abstract class Creature
         get { return name; }
         set
         {
-            name = (value ?? "Unknown").Trim();
+            //name = (value ?? "Unknown").Trim();
             name = Validator.Shortener(value, 3, 25, '#');
 
 

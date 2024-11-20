@@ -32,8 +32,8 @@ public class SmallTorusMapTests
     [Theory]
     [InlineData(3, 4, 5, true)]
     [InlineData(6, 1, 5, false)]
-    [InlineData(19, 19, 20, true)]
-    [InlineData(20, 20, 20, false)]
+    [InlineData(19, 19, 20, true)] //należy do map 
+    [InlineData(20, 20, 20, false)] //nie należy bo na etapie wchodzenia jest wywalane
     public void Exist_ShouldReturnCorrectValue(int x, int y,
         int size, bool expected)
     {

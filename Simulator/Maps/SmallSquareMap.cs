@@ -20,7 +20,6 @@ namespace Simulator.Maps
             if (size >=5 && size <= 20)
             {
                 Size = size;
-                Console.WriteLine($"(0, 0) - ({Size - 1}, {Size - 1})");
             }
             else if (20 < size || 5 > size)
             {
@@ -30,6 +29,10 @@ namespace Simulator.Maps
             
             
 
+        }
+        public override string ToString()
+        {
+            return $"(0, 0)-({Size} - 1, {Size} -1)";
         }
         //sprawdza czy podany punkt należy do mapy
         public override bool Exist(Point p) => rex.Contains(p);

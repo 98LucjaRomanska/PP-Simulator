@@ -22,11 +22,9 @@ namespace Simulator.Maps
             }
             else
             {
-                throw new ArgumentOutOfRangeException();
+               
+                throw new ArgumentOutOfRangeException("size","Size must contain in range 5-20 ");
             }
-
-
-
 
         }
         public override string ToString()

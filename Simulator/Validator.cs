@@ -16,14 +16,18 @@ namespace Simulator
 
         public static string Shortener(string value, int min, int max, char placeholder)
         {
+            value = value.Trim();
             if (min > value.Length) 
-            {   
-                min = value.Length;
-                return value.PadRight(min, placeholder);
+            {
+                int new_min = min - value.Length;
+                for (int i = 0; i < new_min; i++)
+                {
+                    value += placeholder;
+                }
             }
             else if (max < value.Length)
             {
-                return value.Substring(0, max);
+                value = value[0..max].Trim();
             }
             else if ((max | min) == value.Length)
             { 

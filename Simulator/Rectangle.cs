@@ -15,14 +15,14 @@ namespace Simulator
         public readonly int X1, Y1, X2, Y2;
         public Rectangle(int x1, int y1, int x2, int y2)
         {
-            if (x1 < x2) // x1 = 3 , x2 = 5
+            if (x1 < x2 && y1 < y2) // x1 = 3 , x2 = 5
             {
                 X1 = x1;
                 Y1 = y1;
                 X2 = x2;
                 Y2 = y2;
             }
-            else if (x2 < x1) // x1 = 7 x2 = 5
+            else if (x2 < x1 || y1 < y2) // x1 = 7 x2 = 5
             {
                 X1 = x2;
                 Y1 = y2;
@@ -30,11 +30,13 @@ namespace Simulator
                 Y2 = y1;
             }
 
+
             if (x1 != x2 && y1 != y2)
             {
                 Point a = new Point(x1, y1);
                 Point b = new Point(x2, y2);
             }
+
             else if (x1 == x2 || y1 == y2)
             {
                 throw new ArgumentException("Nie chcemy \"chudych\" prostokątów");
@@ -50,7 +52,7 @@ namespace Simulator
 
         public bool Contains(Point point) // sprawdza czy prostokąt zawiera podany punkt
         {
-            if ((point.X >= X1 && point.X <= X2) && (point.Y <= Y2 && point.Y >= Y1))
+            if (point.X >= X1 && point.X <= X2 && point.Y <= Y2 && point.Y >= Y1)
             { return true; }
             else { return false; }
         }

@@ -11,10 +11,10 @@ internal class Program
     {
         Console.WriteLine("Starting Simulator!\n");
 
-        //Lab4a();
-        //Lab4b();
+        Lab4a();
+        Lab4b();
         //Lab5a();
-        Lab5b();
+        //Lab5b();
     
 
 
