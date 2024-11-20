@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Simulator.Maps
 {
-    public class SmallTorusMap : Map
+    public class SmallTorusMap : SmallMap
     {
         public int Size { get; }
         private Rectangle rex; 
@@ -36,7 +36,6 @@ namespace Simulator.Maps
         }
 
 
-        private Point wrappedp;
         public Point ComWrappers(Point p)
         {
             

@@ -16,8 +16,31 @@ internal class Program
         //Lab5a();
         //Lab5b();
     
+        Lab7();
+        
 
 
+    }
+    static void Lab7()
+    {
+        List<string> animals = new();
+
+        animals.Add("cat");
+        animals.AddRange(["dog", "wolf"]);
+
+        animals.Insert(2, "sheep");
+        animals.InsertRange(0, ["mouse", "rat", "hamster", "rabbit"]);
+
+        animals.Remove("rat");
+        animals.RemoveAt(3);
+        animals.RemoveRange(0, 2);
+
+        animals.Sort();
+        animals.Reverse();
+
+        Console.WriteLine($"Last animal: {animals[^1]}");
+        Console.WriteLine("All animals:");
+        foreach (string animal in animals) Console.WriteLine(animal);
     }
     static void Lab5b() //map
     {

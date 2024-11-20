@@ -5,7 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Simulator.Maps
 {
-    public class SmallSquareMap : Map
+    public class SmallSquareMap : SmallMap
     {
 
         public int Size { get; } 
