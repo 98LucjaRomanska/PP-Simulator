@@ -107,7 +107,7 @@ public abstract class Creature
         return result; 
     }
     //klasy pochodne tworzymy odwołując się przez : do klasy bazowej
-
+    /*metoda go musi poinformowac mape o tym ze trzeba go przesunac na mapie*/
 
 
 
