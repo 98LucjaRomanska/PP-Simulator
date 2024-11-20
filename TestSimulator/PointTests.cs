@@ -42,6 +42,7 @@ namespace TestSimulator
             var nextPoint = p.NextDiagonal(direction);
             //Assert
             Assert.Equal(expected, nextPoint);
+
         }
     }
 }

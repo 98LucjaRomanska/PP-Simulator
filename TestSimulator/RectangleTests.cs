@@ -33,6 +33,7 @@ namespace TestSimulator
             Assert.Throws<ArgumentException>(() => new Rectangle(x, y, x1, y1));
         }
 
+
         [Fact]
         public void ConstructorPoint_ShouldBuildRectangleWithTwoPoints()
         {

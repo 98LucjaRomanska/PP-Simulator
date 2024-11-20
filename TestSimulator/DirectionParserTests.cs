@@ -30,6 +30,7 @@ public class DirectionParserTests
             Direction.Down, Direction.Left],
             result
         );
+
     }
 
     [Fact]

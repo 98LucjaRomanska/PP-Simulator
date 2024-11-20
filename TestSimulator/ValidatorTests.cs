@@ -47,7 +47,5 @@ public class ValidatorTests
         Assert.Equal(expected, check);
     }
 
-
-
 }
 

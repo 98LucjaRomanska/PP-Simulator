@@ -11,7 +11,6 @@ namespace Simulator.Maps
     {
         public int Size { get; }
         private Rectangle rex; 
-
         public SmallTorusMap(int size) : base()
         {
             Size = size;

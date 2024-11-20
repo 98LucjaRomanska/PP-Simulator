@@ -43,6 +43,7 @@ namespace TestSimulator
         [InlineData(0, 0, Direction.Down, 0, 0)] //punkty od (0,0) do (Size -1, Size -1)
         [InlineData(0, 8, Direction.Left, 0, 8)]
         [InlineData(19, 10, Direction.Right, 19,10)] 
+
         public void Next_ShouldReturnCorrectPoint(int x, int y, Direction dir, int x1, int y1)
         {
             //Arrange

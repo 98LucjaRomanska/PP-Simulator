@@ -27,9 +27,8 @@ namespace Simulator.Maps
             }
             rex = new(0, 0, Size - 1, Size - 1);
             
-            
-
         }
+
         public override string ToString()
         {
             return $"(0, 0)-({Size} - 1, {Size} -1)";

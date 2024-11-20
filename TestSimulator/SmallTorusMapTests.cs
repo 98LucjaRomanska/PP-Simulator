@@ -16,6 +16,7 @@ public class SmallTorusMapTests
         Assert.Equal(size, map.Size);
     }
 
+
     [Theory]
     [InlineData(4)]
     [InlineData(21)]
