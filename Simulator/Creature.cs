@@ -1,11 +1,27 @@
-﻿using System.Numerics;
+﻿using Simulator.Maps;
+using System.Drawing;
 
 namespace Simulator;
 
 public abstract class Creature
 {
-
+    public int Map? Map { get; private set; } //po stworzeniu jego mapa to moze byc null
+    public int Point Position { get; private set; } //struct ma wartosc domyslna
+    //zainicjować stwora - on jeszcze nie ma mapy i pozycji
+    // dopiero potem wrzucamy je razem na mapę
+    //private set zeby ktos nie pzestawi stwora
     //pola
+    //add będzie potrzebowało mieć stwora i pozycję //zeby polozyc creature na odpowiedniej mapie mamy add
+    /*
+     * move z creature i position
+     * 
+     remove tez ma stwora i punkt //zeby podniesc mamy remove
+    creature from to 
+     
+     */
+
+    public void InitMapAndPosition(Map map, Point point)
+
     private string name;
     private int level = 1; //default value
 
@@ -68,11 +84,17 @@ public abstract class Creature
 
 
     //private string x;
+    //out
     public string[] Go(string dir12) => Go(DirectionParser.Parse(dir12));
 
 
-    public string Go(Direction dir2) => $"{dir2.ToString().ToLower()}";
-
+    public string Go(Direction dir2)
+    {
+        //zgodnie z regulami
+       return $"{dir2.ToString().ToLower()}";
+}
+   
+    //out
     public string[]  Go(Direction[] directions) //tablica ze zmiennymi typu Direction
     {
         var result = new string[directions.Length];

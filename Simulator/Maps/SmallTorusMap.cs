@@ -7,39 +7,24 @@ using System.Threading.Tasks;
 
 namespace Simulator.Maps
 {
-    public class SmallTorusMap : Map
+    public class SmallTorusMap : SmallMap
     {
         public int Size { get; }
         private Rectangle rex; 
 
-        public SmallTorusMap(int size) : base()
-        {
-            Size = size;
-            //jeśli wyjdziemy poza Size to wychodzimy po drugiej stronie
-            if (size <= 20 && size >= 5)
-            {
-                rex = new Rectangle(0, 0, Size - 1, Size - 1);
-            }
-            else
-            {
-                throw new ArgumentOutOfRangeException();
-            }
-
-
-
-
-        }
+        
         public override string ToString()
         {
             return $"(0, 0)-({Size} - 1, {Size} -1)";
         }
-        public override bool Exist(Point p)
-        {
-            return rex.Contains(p);
-        }
+
 
 
         private Point wrappedp;
+
+        public SmallTorusMap(int sizeX, int sizeY) : base(sizeX, sizeY) { }
+
+
         public Point ComWrappers(Point p)
         {
             

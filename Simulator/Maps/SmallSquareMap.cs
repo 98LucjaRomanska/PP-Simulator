@@ -5,36 +5,18 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Simulator.Maps
 {
-    public class SmallSquareMap : Map
+    public class SmallSquareMap : SmallMap
     {
 
         public int Size { get; } 
 
 
         Point p;
-        private Rectangle rex; 
-        public SmallSquareMap(int size)
-        {
-          
+        private Rectangle rex;
 
-            if (size >=5 && size <= 20)
-            {
-                Size = size;
-                Console.WriteLine($"(0, 0) - ({Size - 1}, {Size - 1})");
-            }
-            else if (20 < size || 5 > size)
-            {
-                throw new ArgumentOutOfRangeException();
-            }
-            rex = new(0, 0, Size - 1, Size - 1);
-            
-            
+        public SmallSquareMap(int sizeX, int sizeY) : base(sizeX, sizeY) { }
 
-        }
-        //sprawdza czy podany punkt należy do mapy
-        public override bool Exist(Point p) => rex.Contains(p);
-        
-        
+
         public override Point Next(Point p, Direction d)
         {
             var p_after = p.Next(d); //nowy punkt przesunięty o jedno pole we zskazanym kierunku
