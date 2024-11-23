@@ -8,29 +8,32 @@ namespace TestSimulator
     {
         [Fact]
         public void Constructor_ValidSize_ShouldSetSize()
-        {   
-            int size = 10;
-            var map = new SmallSquareMap(size);
-            Assert.Equal(size, map.Size);
+        {
+            int sizeX = 10;
+            int sizeY = 10;
+            var map = new SmallSquareMap(sizeX,sizeY);
+            Assert.Equal(sizeX,map.SizeX);
+            Assert.Equal(sizeY, map.SizeY);
         }
         [Theory]
-        [InlineData(4)]
-        [InlineData(21)]
-        public void Constructor_InvalidSize_ShouldThrowArgumentOutOfException(int size)
+        [InlineData(4,15)]
+        [InlineData(15,21)]
+        [InlineData(1,21)]
+        public void Constructor_InvalidSize_ShouldThrowArgumentOutOfException(int sizeX, int sizeY)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new SmallTorusMap(size));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new SmallSquareMap(sizeX,sizeY));
            
         }
         [Theory]
-        [InlineData(20,19,20,false)] //nie należy bo na etapie wchodzenia 20 < 20 
-        [InlineData(3,4,5,true)]
-        [InlineData(19, 19, 20, true)] //należy do map 
-        [InlineData(20, 20, 20, false)]
-        public void Exist_PointAffiliation_PointDoesBelongToTheMap(int x,int y,int size, bool expected)
+        [InlineData(20,19,20, 20, false)] //nie należy bo na etapie wchodzenia 20 < 20 
+        [InlineData(3,4,5, 5, true)]
+        [InlineData(19, 19, 20, 20, true)] //należy do map 
+        [InlineData(20, 20, 20, 20, false)]
+        public void Exist_PointAffiliation_PointDoesBelongToTheMap(int x,int y,int sizeX, int sizeY, bool expected)
         {
             //Arrange
             var point = new Point(x,y);
-            var map = new SmallSquareMap(size);
+            var map = new SmallSquareMap(sizeX, sizeY);
             //Act - to co robię 
             var result = map.Exist(point);
             //Assert
@@ -48,7 +51,7 @@ namespace TestSimulator
         {
             //Arrange
             var point = new Point(x, y);
-            var map = new SmallSquareMap(20);
+            var map = new SmallSquareMap(20,20);
             var expectedPoint = new Point(x1, y1);
             //Act
             var nextPoint = map.Next(point, dir);
@@ -67,7 +70,7 @@ namespace TestSimulator
         {
             //Arrange
             var p = new Point(x, y);
-            var map = new SmallSquareMap(20);
+            var map = new SmallSquareMap(20,20 );
             var excPoint = new Point(x1, y1);
             //Act
             var nextDiagonalPoint = map.NextDiagonal(p, dir);

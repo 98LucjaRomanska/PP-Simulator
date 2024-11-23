@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel;
 using System.Linq;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 namespace Simulator
 {
     public static class DirectionParser
     {
-        public static Direction[] Parse(string x)
+        public static List<Direction> Parse(string x)
         {
             char[] Chars = { 'L', 'R', 'U', 'D' };
             List<Direction> selected = new List<Direction>(); //initalization of list in C#
@@ -33,7 +34,7 @@ namespace Simulator
                 }
                  
             } 
-             return selected.ToArray();
+             return selected;
              
             
             

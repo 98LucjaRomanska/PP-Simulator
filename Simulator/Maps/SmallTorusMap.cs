@@ -10,44 +10,28 @@ namespace Simulator.Maps
     public class SmallTorusMap : SmallMap
     {
         public int Size { get; }
-        private Rectangle rex; 
-        public SmallTorusMap(int size) : base()
-        {
-            Size = size;
-            //jeśli wyjdziemy poza Size to wychodzimy po drugiej stronie
-            if (size <= 20 && size >= 5)
-            {
-                rex = new Rectangle(0, 0, Size - 1, Size - 1);
-            }
-            else
-            {
-               
-                throw new ArgumentOutOfRangeException("size","Size must contain in range 5-20 ");
-            }
-
-        }
+        private Rectangle rex;
+        public SmallTorusMap(int sizeX, int sizeY) : base(sizeX, sizeY) { }
+        /*
         public override string ToString()
         {
             return $"(0, 0)-({Size} - 1, {Size} -1)";
         }
-        public override bool Exist(Point p)
-        {
-            return rex.Contains(p);
-        }
-
+        */
 
         public Point ComWrappers(Point p)
         {
             
-            int wrapX = (p.X + Size) % Size;
-            int wrapY = (p.Y + Size) % Size;
+            int wrapX = (p.X + SizeX) % SizeX; 
+            int wrapY = (p.Y + SizeY) % SizeY;
             Point wrappedp = new Point(wrapX, wrapY);
             return wrappedp;
             
         }
         public override Point Next(Point p, Direction d)
         {
-            var newPoint = p.Next(d);
+            // p = (0,0) d = Direction.Down
+            var newPoint = p.Next(d);  //(0,-1)
             newPoint = ComWrappers(newPoint);
             return newPoint;
         }

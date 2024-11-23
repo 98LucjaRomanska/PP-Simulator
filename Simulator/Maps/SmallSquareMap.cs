@@ -13,28 +13,20 @@ namespace Simulator.Maps
 
         Point p;
         private Rectangle rex; 
-        public SmallSquareMap(int size)
+        public SmallSquareMap(int sizeX, int sizeY) : base(sizeX,sizeY)
         {
-          
+            if (sizeX != sizeY)
+            {
+                throw new ArgumentException("SmallSquareMap must have equal width and height");
+            }
 
-            if (size >=5 && size <= 20)
-            {
-                Size = size;
-            }
-            else if (20 < size || 5 > size)
-            {
-                throw new ArgumentOutOfRangeException();
-            }
-            rex = new(0, 0, Size - 1, Size - 1);
-            
         }
-
+        /*
         public override string ToString()
         {
             return $"(0, 0)-({Size} - 1, {Size} -1)";
         }
-        //sprawdza czy podany punkt należy do mapy
-        public override bool Exist(Point p) => rex.Contains(p);
+        */
         
         
         public override Point Next(Point p, Direction d)

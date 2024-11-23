@@ -11,43 +11,20 @@ internal class Program
     {
         Console.WriteLine("Starting Simulator!\n");
 
-        Lab4a();
-        Lab4b();
+        //Lab4a();
+        //Lab4b();
         //Lab5a();
-        //Lab5b();
-    
-        Lab7();
-        
-
+        Lab5b();
 
     }
-    static void Lab7()
-    {
-        List<string> animals = new();
 
-        animals.Add("cat");
-        animals.AddRange(["dog", "wolf"]);
-
-        animals.Insert(2, "sheep");
-        animals.InsertRange(0, ["mouse", "rat", "hamster", "rabbit"]);
-
-        animals.Remove("rat");
-        animals.RemoveAt(3);
-        animals.RemoveRange(0, 2);
-
-        animals.Sort();
-        animals.Reverse();
-
-        Console.WriteLine($"Last animal: {animals[^1]}");
-        Console.WriteLine("All animals:");
-        foreach (string animal in animals) Console.WriteLine(animal);
-    }
     static void Lab5b() //map
     {
         Point p = new(2, 0);
-        Console.Write("Coordinates of a new map: ");
-        SmallSquareMap firstMap = new(5);
-        Console.WriteLine(firstMap.Size);
+        
+        SmallSquareMap firstMap = new(5,5);
+        //Console.WriteLine(firstMap.Size);
+        Console.Write($"Coordinates of a new map: {firstMap.Size}");
 
         p = firstMap.Next(p,Direction.Up); //(2,1)
         Console.WriteLine(p);
@@ -63,7 +40,7 @@ internal class Program
         }
         try
         {
-            SmallSquareMap secondMap = new(21);
+            SmallSquareMap secondMap = new(21,20);
         }
         catch (ArgumentOutOfRangeException e)
         {
@@ -80,7 +57,39 @@ internal class Program
 
         
     }
+    static void Dictionary_to_check()
+    {
+        var p = new Dictionary<string, int>(); // country population in millions
 
+        p.Add("Poland", 37);    // add 
+        p.Add("China", 1437);
+        // p.Add("China", 100); // error - key present
+        p["India"] = 100;       // another way to add, where key is absent
+        p["India"] = 1412;      // update, because key is present 
+        p["USA"] = 337;
+        p["France"] = 336;
+        p.Add("Russia", 145);
+        p.Add("UK", 68);
+
+        p.Remove("Russia");     // key present -> remove and return true
+        //p.Remove("France");     // key absent -> return false
+
+        if (p.ContainsKey("France")) { p["France"] = 3; /* do something */ }
+        if (p.ContainsValue(37)) { /* do something */ }  // possible, but slow
+
+        Console.WriteLine(p["Poland"]);
+        // Console.WriteLine(p["France"]);  // error - key absent
+
+        // iterate keys or values or key-value-pairs:
+        foreach (string s in p.Keys) Console.Write(s + " ");
+        Console.WriteLine();
+        foreach (int i in p.Values) Console.Write(i + " ");
+        Console.WriteLine();
+        foreach (KeyValuePair<string, int> element in p)
+        {
+            Console.WriteLine($"{element.Key,-15}: {element.Value,4}");
+        }
+    }
     static void Lab5a()
     {
         Point p = new(10, 25);
@@ -129,20 +138,20 @@ internal class Program
 
         Console.WriteLine("HUNT TEST\n");
         var o = new Orc() { Name = "Gorbag", Rage = 7 };
-        o.SayHi();
+        o.Greeting();
         for (int i = 0; i < 10; i++)
         {
             o.Hunt();
-            o.SayHi();
+            o.Greeting();
         }
 
         Console.WriteLine("\nSING TEST\n");
         var e = new Elf("Legolas", agility: 2);
-        e.SayHi();
+        e.Greeting();
         for (int i = 0; i < 10; i++)
         {
             e.Sing();
-            e.SayHi();
+            e.Greeting();
         }
 
         Console.WriteLine("\nPOWER TEST\n");

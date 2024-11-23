@@ -1,4 +1,4 @@
-﻿using FizzWare.NBuilder.Dates;
+﻿using System.Drawing;
 
 namespace Simulator.Maps
 {
@@ -7,46 +7,35 @@ namespace Simulator.Maps
     /// </summary>
     public abstract class Map
     {
-        private Rectangle rex;
 
-        protected Map(int sizeX, int sizeY)
-        {
-            if (sizeX < 5)
-            {
-                throw new ArgumentOutOfRangeException(nameof(sizeX), "Too narrow");
-            }
-            if (sizeY < 5)
-            {
-                throw new ArgumentOutOfRangeException(nameof(sizeY), "Too short");
-            }
-            SizeX = sizeX;
-            SizeY = sizeY;
-        }
-
+        private readonly Rectangle rectangle;
         public int SizeX { get; }
         public int SizeY { get; }
+        protected Map(int sizeX, int sizeY) //konstruktor
+        {
+            if (sizeX < 5)
+            { throw new ArgumentOutOfRangeException(nameof(sizeX), "Too narrow"); }
+            if (sizeY < 5)
+            { throw new ArgumentOutOfRangeException(nameof(sizeY), "Too short"); }
+            SizeX = sizeX;
+            SizeY = sizeY;
 
-        public abstract void Add(Creature creature, Point point);
-        public abstract void Remove(Creature creature, Point point);
-        public abstract List<Creature>? At(int x, int y);
-        //w jaki sposob ma przechowywac stwory na mapie 
-        /*
-        tablica dwuwymiarowa - do przechowywania naszych danych implementujemy to w SmallMap
-        teraz 1 poziom abstrakcji logiczne dzialanie mapy
-        2 poziom wewnetrzny sposob przechowywania danych przez mape, fizyczna struktura danych 
-        3 poziom mapa definiuje reguly poruszania sie 
-         */
+            rectangle = new Rectangle(0, 0, SizeX - 1, SizeY - 1);
 
+            
+        }
 
-        //sprawdza czy podany punkt należy do mapy
-        public virtual bool Exist(Point p) => rex.Contains(p);
-
+        public virtual string ToString()
+        {
+            return $"(0, 0)-({SizeX} - 1, {SizeY} -1)";
+        }
         /// <summary>
         /// Check if give point belongs to the map.
         /// </summary>
         /// <param name="p">Point to check.</param>
         /// <returns></returns>
-        
+        public virtual bool Exist(Point p) => rectangle.Contains(p);
+
 
         /// <summary>
         /// Next position to the point in a given direction.
