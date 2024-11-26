@@ -48,11 +48,9 @@ public class Simulation
         /* implement getter only */
         get 
         {
-            if (Creatures.Count == 0 && Positions.Count != Creatures.Count)
-            {
-                throw new ArgumentException();
-            }
-            return DirectionParser.Parse(Moves)[_count].ToString().ToLower();
+            var movesDiv = DirectionParser.Parse(Moves);
+            int liczObroty = _count % movesDiv.Count;
+            return movesDiv[liczObroty].ToString().ToLower();
         }
     }
 
@@ -66,11 +64,11 @@ public class Simulation
     public Simulation(Map map, List<Creature> creatures,
         List<Point> positions, string moves)
     {
-        if (Creatures.Count == 0)
+        if (creatures.Count == 0)
         {
             throw new ArgumentException("Creatures list is empty.");
         }
-        if (Positions.Count != Creatures.Count)
+        if (positions.Count != creatures.Count)
         {
             throw new ArgumentException(
                 "Number of creatures differs from number of starting points");
@@ -83,7 +81,7 @@ public class Simulation
         {
             Creatures[i].InitializeMP(Map, Positions[i]);
         }
-        Moves = string.Concat(DirectionParser.Parse(moves).Select(d => d.ToString()));
+        Moves = string.Concat(DirectionParser.Parse(moves).Select(d => d.ToString()[0]));
     }
 
     /// <summary>
@@ -102,7 +100,7 @@ public class Simulation
             return;
         }
         var move = DirectionParser.Parse(Moves)[_count];
-        Map.Move(CurrentCreature, CurrentCreature.Position, Map.Next(CurrentCreature.Position, move));
+        //Map.Move(CurrentCreature, CurrentCreature.Position, Map.Next(CurrentCreature.Position, move));
         _count++;
         if (_count >= Moves.Length)
         {

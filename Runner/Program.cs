@@ -24,7 +24,7 @@ internal class Program
         static void TestSmallMapFunctions()
         {
             // Create a new map of size 5x5
-            SmallSquareMap squareMap = new SmallSquareMap(5, 5);
+            SmallSquareMap squareMap = new SmallSquareMap(5);
 
             // Create a new dragon named "Dragon" at level 1
             Creature dragon = new Elf("Dragon", 1); // Assuming "Dragon" is a subclass of Creature
@@ -85,7 +85,7 @@ internal class Program
             
 
             //mapa
-            SmallSquareMap firstMap = new(20, 20);
+            SmallSquareMap firstMap = new(20);
             Point p0 = new Point(3, 1);
             firstMap.Add(ragnarok, p0);
             firstMap.Add(gloria, p0);
@@ -97,7 +97,7 @@ internal class Program
         {
             Point p = new(2, 0);
 
-            SmallSquareMap firstMap = new(5, 5);
+            SmallSquareMap firstMap = new(5);
             //Console.WriteLine(firstMap.Size);
             Console.Write($"Coordinates of a new map: {firstMap.SizeX},{firstMap.SizeY}");
 
@@ -115,7 +115,7 @@ internal class Program
             }
             try
             {
-                SmallSquareMap secondMap = new(21, 20);
+                SmallSquareMap secondMap = new(21);
             }
             catch (ArgumentOutOfRangeException e)
             {

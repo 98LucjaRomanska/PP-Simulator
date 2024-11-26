@@ -12,15 +12,9 @@ namespace Simulator.Maps
 
 
         Point p;
-        private Rectangle rex; 
-        public SmallSquareMap(int sizeX, int sizeY) : base(sizeX,sizeY)
-        {
-            if (sizeX != sizeY)
-            {
-                throw new ArgumentException("SmallSquareMap must have equal width and height");
-            }
+        private Rectangle rex;
+        public SmallSquareMap(int size) : base(size, size) { }
 
-        }
         /*
         public override string ToString()
         {
