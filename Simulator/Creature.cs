@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using Simulator.Maps;
+using System.Numerics;
 using System.Reflection.Metadata.Ecma335;
 
 namespace Simulator;
@@ -9,6 +10,8 @@ public abstract class Creature
     //pola
     private string name;
     private int level = 1; //default value
+    private Point position;
+    private Map map;
 
 
     //konstruktor
@@ -17,6 +20,8 @@ public abstract class Creature
         Name = name;
         Level = level;
     }
+    public Point Position { get; private set; }
+    public Map? Map { get; private set; }
 
     public Creature() { }
     public abstract string Info
@@ -52,9 +57,7 @@ public abstract class Creature
             level = Validator.Limiter(value, 1, 10);
         }
     }
-    public abstract int Power { get; } //abstract property
-
-
+    public abstract int Power { get; } 
 
     //metoda
     public void Upgrade()
@@ -66,24 +69,32 @@ public abstract class Creature
     {
         return $"{GetType().Name.ToUpper()}: {Info}";
     }
-
-
-
-    public string Go(Direction dir2) => $"{dir2.ToString().ToLower()}";
-
-    public string[] Go(Direction[] directions) //tablica ze zmiennymi typu Direction
+    public void InitializeMP(Map map, Point position)
     {
-        var result = new string[directions.Length];
+        if (map == null) throw new ArgumentNullException(nameof(map));
+        if (Map != null) throw new InvalidOperationException($"Creature cannot be moved from one map to another");
+        if (!map.Exist(position)) throw new ArgumentException($"This point does not belong to the map");
 
-        for (int i = 0; i < directions.Length; i++)
-        {
-            result[i] = Go(directions[i]);
-        }
-
-        return result;
+        Map = map;
+        Position = position;
+        Map.Add(this, position);
     }
-    //klasy pochodne tworzymy odwołując się przez : do klasy bazowej
+    public string Go(Direction direction) // alfonso.Go(Direction.Left)
+    {
+        
+        if (Map == null) return "No map assigned";
 
+        Point nextPosition = Map.Next(Position, direction);
+
+        Map.Move(this, Position, nextPosition);
+        Position = nextPosition;
+        return $"{Name} goes {direction.ToString().ToLower()}.";
+        /*
+        Map?.Move(this, Position, Map.Next(Position, direction));
+
+        return $"{direction.ToString().ToLower()}";
+        */
+    }
 
 
 

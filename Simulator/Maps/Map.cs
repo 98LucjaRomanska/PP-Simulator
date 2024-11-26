@@ -24,7 +24,11 @@ namespace Simulator.Maps
 
             
         }
-
+        public abstract void Add(Creature creature, Point position);
+        public abstract void Remove(Creature creature, Point position);
+        public abstract List<Creature>? At(Point p);
+        public abstract List<Creature>? At(int x, int y);
+        public abstract void Move(Creature creature, Point pFirst, Point PDesired);
         public virtual string ToString()
         {
             return $"(0, 0)-({SizeX} - 1, {SizeY} -1)";
