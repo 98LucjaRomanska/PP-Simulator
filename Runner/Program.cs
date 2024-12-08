@@ -57,7 +57,7 @@ internal class Program
 
             foreach (var c in where_cStands)
             {
-                Console.WriteLine(c.Greeting());
+                //Console.WriteLine(c.Greeting());
             }
             Console.WriteLine(squareMap.At(newPosition));
 

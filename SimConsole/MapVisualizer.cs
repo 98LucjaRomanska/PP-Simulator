@@ -25,8 +25,6 @@ public class MapVisualizer
         }
         Console.WriteLine($"{Box.Horizontal}{Box.TopRight}");
 
-
-        
         
  
         for (int row = _map.SizeY - 1; row >= 0; row--)

@@ -15,12 +15,6 @@ namespace Simulator.Maps
         private Rectangle rex;
         public SmallSquareMap(int size) : base(size, size) { }
 
-        /*
-        public override string ToString()
-        {
-            return $"(0, 0)-({Size} - 1, {Size} -1)";
-        }
-        */
         
         
         public override Point Next(Point p, Direction d)

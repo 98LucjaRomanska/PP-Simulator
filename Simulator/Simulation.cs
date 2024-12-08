@@ -1,32 +1,20 @@
 ﻿using Simulator.Maps;
 using Simulator;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 public class Simulation
 {
-    /// <summary>
-    /// Simulation's map.
-    /// </summary>
+
     public Map Map { get; }
 
-    /// <summary>
-    /// Creatures moving on the map.
-    /// </summary>
-    public List<Creature> Creatures { get; }
+    public List<IMappable> Mappables { get; }
 
-    /// <summary>
-    /// Starting positions of creatures.
-    /// </summary>
     public List<Point> Positions { get; }
 
-    /// <summary>
-    /// Cyclic list of creatures moves. 
-    /// Bad moves are ignored - use DirectionParser.
-    /// First move is for first creature, second for second and so on.
-    /// When all creatures make moves, 
-    /// next move is again for first creature and so on.
-    /// </summary>
     public string Moves { get; }
-
+    private List<Direction> ParsedString { get; }
+    private HashSet<char> valid = new HashSet<char> { 'u', 'd', 'r', 'l' };
     /// <summary>
     /// Has all moves been done?
     /// </summary>
@@ -36,8 +24,8 @@ public class Simulation
     /// Creature which will be moving current turn.
     /// </summary>
     
-    private int _count = 0;
-    public Creature CurrentCreature => Creatures[_count%Creatures.Count];
+    private int currentTurn = 0;
+    public IMappable CurrentMappable => Mappables[currentTurn%Mappables.Count];
 
 
     /// <summary>
@@ -48,9 +36,8 @@ public class Simulation
         /* implement getter only */
         get 
         {
-            var movesDiv = DirectionParser.Parse(Moves);
-            int liczObroty = _count % movesDiv.Count;
-            return movesDiv[liczObroty].ToString().ToLower();
+            char move = Moves[currentTurn % Moves.Length];
+            return move.ToString();
         }
     }
 
@@ -61,27 +48,29 @@ public class Simulation
         /// if number of creatures differs from 
         /// number of starting positions.
         /// </summary>
-    public Simulation(Map map, List<Creature> creatures,
+    public Simulation(Map map, List<IMappable> creatures,
         List<Point> positions, string moves)
     {
         if (creatures.Count == 0)
         {
             throw new ArgumentException("Creatures list is empty.");
         }
-        if (positions.Count != creatures.Count)
+        if (positions == null || positions.Count != creatures.Count)
         {
             throw new ArgumentException(
                 "Number of creatures differs from number of starting points");
         }
         Map = map;
-        Creatures = creatures;
+        Mappables = creatures;
         Positions = positions;
         Moves = moves;
         for (int i = 0; i < creatures.Count; i++)
         {
-            Creatures[i].InitializeMP(Map, Positions[i]);
+            creatures[i].InitMapAndPosition(map, positions[i]);
+            
         }
-        Moves = string.Concat(DirectionParser.Parse(moves).Select(d => d.ToString()[0]));
+        
+        
     }
 
     /// <summary>
@@ -92,19 +81,26 @@ public class Simulation
     {
         if (Finished)
         {
-            throw new InvalidOperationException("Sequence of moves has just finished.");
+            throw new InvalidOperationException("Simulation has just finished.");
         }
-        if (_count >= Moves.Length)
-        {
-            Finished = true;
-            return;
-        }
-        var move = DirectionParser.Parse(Moves)[_count];
-        //Map.Move(CurrentCreature, CurrentCreature.Position, Map.Next(CurrentCreature.Position, move));
-        _count++;
-        if (_count >= Moves.Length)
+        if (currentTurn >= Moves.Length)
         {
             Finished = true;
         }
+        currentTurn++;
+        var direction = DirectionParser.Parse(CurrentMoveName)[0];
+        CurrentMappable.Go(direction);
+        
+        
+        
     }
+    /*
+    private List<Direction> ValidateMoves(string moves)
+    {
+        return moves
+          .Where(c => valid.Contains(char.ToLower(c)))
+          .Select(c => DirectionParser.Parse(c.ToString()).FirstOrDefault())
+          .ToList();
+    }*/
+
 }

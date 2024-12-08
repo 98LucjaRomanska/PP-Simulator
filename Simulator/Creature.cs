@@ -1,10 +1,11 @@
 ﻿using Simulator.Maps;
 using System.Numerics;
 using System.Reflection.Metadata.Ecma335;
+//using SimConsole.MapVisualizer;
 
 namespace Simulator;
 
-public abstract class Creature
+public abstract class Creature : IMappable
 {
 
     //pola
@@ -12,7 +13,8 @@ public abstract class Creature
     private int level = 1; //default value
     private Point position;
     private Map map;
-
+    public Point Position { get; private set; }
+    public Map? Map { get; private set; }
 
     //konstruktor
     public Creature(string name, int level = 1)
@@ -20,10 +22,9 @@ public abstract class Creature
         Name = name;
         Level = level;
     }
-    public Point Position { get; private set; }
-    public Map? Map { get; private set; }
 
     public Creature() { }
+
     public abstract string Info
     {
         get;
@@ -33,16 +34,13 @@ public abstract class Creature
     public string Name
     {
         get { return name; }
-        set
+        init
         {
-            //name = (value ?? "Unknown").Trim();
             name = Validator.Shortener(value, 3, 25, '#');
-
 
             if (char.IsLower(name[0]))
             {
                 name = char.ToUpper(name[0]) + name.Substring(1);
-                //.Substring(int startIndex, int length) - określam początek i długość 
             }
 
         }
@@ -62,40 +60,45 @@ public abstract class Creature
     //metoda
     public void Upgrade()
     {
-        if (level < 10) { level += 1; }
+        if (level < 10) level ++; 
     }
 
     public override string ToString()
     {
         return $"{GetType().Name.ToUpper()}: {Info}";
     }
-    public void InitializeMP(Map map, Point position)
+    public void InitMapAndPosition(Map map, Point position)
     {
         if (map == null) throw new ArgumentNullException(nameof(map));
-        if (Map != null) throw new InvalidOperationException($"Creature cannot be moved from one map to another");
         if (!map.Exist(position)) throw new ArgumentException($"This point does not belong to the map");
 
         Map = map;
         Position = position;
-        Map.Add(this, position);
+        map.Add(this, position);
     }
-    public string Go(Direction direction) // alfonso.Go(Direction.Left)
+    public void Go(Direction direction) // alfonso.Go(Direction.Left)
     {
-        
-        if (Map == null) return "No map assigned";
 
+        if (Map == null) throw new InvalidOperationException("No map assigned");
+        //Get the next position based on the direction 
         Point nextPosition = Map.Next(Position, direction);
-
+        //Move the creature on the map
         Map.Move(this, Position, nextPosition);
+        //Update the position
         Position = nextPosition;
-        return $"{Name} goes {direction.ToString().ToLower()}.";
-        /*
-        Map?.Move(this, Position, Map.Next(Position, direction));
-
-        return $"{direction.ToString().ToLower()}";
-        */
+        
+       
+    }
+    void IMappable.Go(Direction direction)
+    {
+        this.Go(direction);
     }
 
+    object IMappable.Name
+    {
+        get => Name;
+        set=> throw new NotImplementedException();
+    }
 
 
 

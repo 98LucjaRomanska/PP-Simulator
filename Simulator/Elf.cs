@@ -33,10 +33,8 @@ namespace Simulator
             return $"Hi, I'm {Name}, my level is {Level}, my agility is {Agility}!";
         }
 
-        public override string Info
-        {
-            get { return $"{Name} [{Level}] [{Agility}]"; }
-        }
+        public override string Info => $"{Name} [{Level}] [{Agility}]";
+        
 
 
         private int power;
