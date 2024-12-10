@@ -1,4 +1,5 @@
 ﻿using Simulator.Maps;
+using System.Linq.Expressions;
 using System.Numerics;
 using System.Reflection.Metadata.Ecma335;
 //using SimConsole.MapVisualizer;
@@ -15,7 +16,8 @@ public abstract class Creature : IMappable
     private Map map;
     public Point Position { get; private set; }
     public Map? Map { get; private set; }
-
+    public virtual char Symbol { get; }
+        
     //konstruktor
     public Creature(string name, int level = 1)
     {
@@ -100,14 +102,5 @@ public abstract class Creature : IMappable
         set=> throw new NotImplementedException();
     }
 
-
-
-
-
-
-
-
-
-
-
+    
 }

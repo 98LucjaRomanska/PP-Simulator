@@ -33,6 +33,7 @@ public class MapVisualizer
             for (int verti = 0; verti < _map.SizeX; verti++)
             {
                 var creatures = _map.At(verti, row);
+                
 
                 if (creatures?.Count > 1)
                 {
@@ -40,8 +41,8 @@ public class MapVisualizer
                 }
                 else if (creatures?.Count == 1)
                 {
-                    char symbol = creatures[0] is Elf ? 'E' : 'O';
-                    Console.Write(symbol);
+
+                    Console.Write(creatures[0].Symbol);
 
                 }
                 else

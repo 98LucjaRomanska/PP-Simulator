@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Runner\Runner.csproj" />
     <ProjectReference Include="..\Simulator\Simulator.csproj" />
+    <ProjectReference Include="..\TestSimulator\TestSimulator.csproj" />
   </ItemGroup>
 
 </Project>

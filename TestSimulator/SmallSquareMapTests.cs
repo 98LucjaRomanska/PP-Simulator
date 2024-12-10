@@ -11,17 +11,19 @@ namespace TestSimulator
         {
             int sizeX = 10;
             int sizeY = 10;
-            var map = new SmallSquareMap(sizeX,sizeY);
+            var map = new SmallSquareMap(sizeX);
             Assert.Equal(sizeX,map.SizeX);
-            Assert.Equal(sizeY, map.SizeY);
+            //Assert.Equal(sizeY, map.SizeY);
         }
         [Theory]
-        [InlineData(4,15)]
-        [InlineData(15,21)]
-        [InlineData(1,21)]
-        public void Constructor_InvalidSize_ShouldThrowArgumentOutOfException(int sizeX, int sizeY)
+        [InlineData(15)]
+        [InlineData(21)]
+        [InlineData(20)]
+        [InlineData(1)]
+        [InlineData(19)]
+        public void Constructor_InvalidSize_ShouldThrowArgumentOutOfException(int sizeX)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new SmallSquareMap(sizeX,sizeY));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new SmallSquareMap(sizeX));
            
         }
         [Theory]
@@ -33,7 +35,7 @@ namespace TestSimulator
         {
             //Arrange
             var point = new Point(x,y);
-            var map = new SmallSquareMap(sizeX, sizeY);
+            var map = new SmallSquareMap(sizeX);
             //Act - to co robię 
             var result = map.Exist(point);
             //Assert
@@ -51,7 +53,7 @@ namespace TestSimulator
         {
             //Arrange
             var point = new Point(x, y);
-            var map = new SmallSquareMap(20,20);
+            var map = new SmallSquareMap(20);
             var expectedPoint = new Point(x1, y1);
             //Act
             var nextPoint = map.Next(point, dir);
@@ -70,7 +72,7 @@ namespace TestSimulator
         {
             //Arrange
             var p = new Point(x, y);
-            var map = new SmallSquareMap(20,20 );
+            var map = new SmallSquareMap(20);
             var excPoint = new Point(x1, y1);
             //Act
             var nextDiagonalPoint = map.NextDiagonal(p, dir);

@@ -24,7 +24,7 @@ public class Simulation
     /// Creature which will be moving current turn.
     /// </summary>
     
-    private int currentTurn = 0;
+    public int currentTurn = 0;
     public IMappable CurrentMappable => Mappables[currentTurn%Mappables.Count];
 
 

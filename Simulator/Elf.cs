@@ -7,9 +7,9 @@ namespace Simulator
     public class Elf : Creature // i need to highlight inheritance
     {
         public Elf() : base("Unknown", 1) { } //konstruktor bezparametrowy
-        public Elf(string name, int level =1, int agility = 0) : base(name, level)
+        public Elf(string name, int level = 1, int agility = 0) : base(name, level)
         {
-            
+
             Agility = agility;
         }
         private int agility;
@@ -18,6 +18,7 @@ namespace Simulator
             get => agility;
             set { agility = Validator.Limiter(value, 0, 10); }
         }
+        public override char Symbol { get { return 'E'; } }
         private bool _isSingCalled = false;
         private int counter = 1;
         public void Sing()
@@ -33,7 +34,7 @@ namespace Simulator
             return $"Hi, I'm {Name}, my level is {Level}, my agility is {Agility}!";
         }
 
-        public override string Info => $"{Name} [{Level}] [{Agility}]";
+        public override string Info => $"{Name} [{Level}][{Agility}]";
         
 
 

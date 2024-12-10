@@ -16,7 +16,8 @@ namespace Simulator
             get { return rage; }
             init { rage = Validator.Limiter(value, 0, 10); }
         }
-
+        public override char Symbol { get { return 'O'; } }
+        
         private bool _isHuntCalled = false;
         private int counter = 1;
         public void Hunt()
@@ -33,7 +34,7 @@ namespace Simulator
         }
         public override string Info
         {
-            get { return $"{Name} [{Level}] [{Rage}]"; }
+            get { return $"{Name} [{Level}][{Rage}]"; }
         }
         /*
         public override String ToString(Creature c)
