@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Simulator.Maps;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,26 +9,22 @@ namespace Simulator
 {
     public class Birds : Animals
     {
-        private bool canFly = true;
+        
         private Point position;
         public Point Position { get; private set; }
-        public Birds(string description, int size,bool canFly) : base(description, size) 
+        public Birds(string description, int size,bool canFly = true) : base(description, size) 
         {
-            this.canFly = canFly;
+            CanFly = canFly;
         }
         public override char Symbol
         {
             get {
-                if (canFly) return 'B';
+                if (CanFly) return 'B';
                 else return 'b';
             }
         }
 
-        public bool CanFly
-        {
-            get { return canFly; }
-            set { canFly = value;  }
-        }
+        public bool CanFly { get; set; }
         public override string Info
         {
             
@@ -38,26 +35,28 @@ namespace Simulator
         }
         public override void Go(Direction direction)
         {
-            
-            if (canFly)
+
+            if (CanFly == true)
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    Point nextPosition = Map.Next(Position, direction);
-                    Map.Move(this, Position, nextPosition);
-                    Position = nextPosition;
+
+                    Map.Move(this, Position, Map.Next(Position, direction));
+                    Position = Map.Next(Position, direction);
                 }
-                
+
             }
-            else if (!canFly)
+            else if (!CanFly)
             {
                 Point nextPosition = Map.NextDiagonal(Position, direction);
                 Map.Move(this, Position, nextPosition);
                 Position = nextPosition;
             }
-            
-          
+
         }
+
+
+
 
     }
 }

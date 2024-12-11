@@ -14,7 +14,7 @@ internal class Program
         Console.WriteLine("SIMULATION");
 
         BigBounceMap map = new(8, 6);
-        List<IMappable> creatures = [new Birds("Orły",3, true),
+        List<IMappable> creatures = [new Birds("Orły",3),
             new Elf("Elandor"), new Animals("Królisie", 2),
             new Orc("Gorbag"), new Birds("Gęsi",2, false)];
 
@@ -23,29 +23,32 @@ internal class Program
 
         Simulation simulation = new(map, creatures, points, moves);
         MapVisualizer mapVisualizer = new MapVisualizer(map);
+        Console.WriteLine("Starting positions: ");
         mapVisualizer.Draw();
         var turn = 1;
 
-
+        
         while (!simulation.Finished)
         {
             Console.ReadKey();
             Console.WriteLine($"Runda {turn}");
 
             Console.WriteLine();
+            turn++;
             simulation.Turn();
             mapVisualizer.Draw();
-
-            //Point _posC = simulation.Positions[simulation.currentTurn % simulation.Mappables.Count];
-
+            
             Console.Write(
                 $"{simulation.CurrentMappable} " + 
                 $"goes {simulation.CurrentMoveName.ToUpper()}\n"
                 );
             Console.WriteLine();
-            turn++;
+            
 
         }
+        simulation.History.DisplayS(4);
+
+        simulation.History.DisplayS(16);
         
     }   
 

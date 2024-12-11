@@ -2,6 +2,7 @@
 using Simulator;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Diagnostics.Metrics;
 
 public class Simulation
 {
@@ -40,35 +41,37 @@ public class Simulation
             return move.ToString();
         }
     }
-
+    public SimulationHistory History { get; }
     /// <summary>
     /// Simulation constructor.
           /// Throw errors:
-        /// if creatures' list is empty,
-        /// if number of creatures differs from 
+        /// if mappables' list is empty,
+        /// if number of mappables differs from 
         /// number of starting positions.
         /// </summary>
-    public Simulation(Map map, List<IMappable> creatures,
+    public Simulation(Map map, List<IMappable> mappables,
         List<Point> positions, string moves)
     {
-        if (creatures.Count == 0)
+        if (mappables.Count == 0)
         {
             throw new ArgumentException("Creatures list is empty.");
         }
-        if (positions == null || positions.Count != creatures.Count)
+        if (positions == null || positions.Count != mappables.Count)
         {
             throw new ArgumentException(
-                "Number of creatures differs from number of starting points");
+                "Number of mappables differs from number of starting points");
         }
         Map = map;
-        Mappables = creatures;
+        Mappables = mappables;
         Positions = positions;
         Moves = moves;
-        for (int i = 0; i < creatures.Count; i++)
+        for (int i = 0; i < mappables.Count; i++)
         {
-            creatures[i].InitMapAndPosition(map, positions[i]);
+            mappables[i].InitMapAndPosition(map, positions[i]);
             
         }
+        History = new SimulationHistory();
+        History.CatchState(currentTurn, Mappables.ToDictionary(m => m, m => m.Position),null, null);
         
         
     }
@@ -83,16 +86,20 @@ public class Simulation
         {
             throw new InvalidOperationException("Simulation has just finished.");
         }
+        var direction = DirectionParser.Parse(CurrentMoveName)[0];
+        CurrentMappable.Go(direction);
+        History.CatchState(
+            currentTurn,Mappables.ToDictionary(m => m, m => m.Position),
+            CurrentMappable, direction);
+
+        currentTurn++;
         if (currentTurn >= Moves.Length)
         {
             Finished = true;
         }
-        currentTurn++;
-        var direction = DirectionParser.Parse(CurrentMoveName)[0];
-        CurrentMappable.Go(direction);
-        
-        
-        
+
+
+
     }
     /*
     private List<Direction> ValidateMoves(string moves)
