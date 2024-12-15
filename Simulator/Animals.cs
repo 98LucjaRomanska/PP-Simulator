@@ -40,10 +40,9 @@ public class Animals : IMappable
     public void InitMapAndPosition(Map map, Point position)
     {
         if (map == null) throw new ArgumentNullException(nameof(map));
-        if (!map.Exist(position)) throw new ArgumentException($"This point does not belong to the map");
-
         Map = map;
         Position = position;
+        //Map = map.Exist(position) ? map : throw new ($"This point does not belong to the map");
         map.Add(this, position);
     }
     public virtual void Go(Direction direction)

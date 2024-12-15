@@ -89,7 +89,8 @@ public class Simulation
         var direction = DirectionParser.Parse(CurrentMoveName)[0];
         CurrentMappable.Go(direction);
         History.CatchState(
-            currentTurn,Mappables.ToDictionary(m => m, m => m.Position),
+            currentTurn,
+            Mappables.ToDictionary(m => m, m => m.Position),
             CurrentMappable, direction);
 
         currentTurn++;

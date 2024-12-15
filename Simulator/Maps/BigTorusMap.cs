@@ -1,28 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Simulator.Maps
 {
-    public class SmallTorusMap : SmallMap
+    public class BigTorusMap : BigMap
     {
-        public int SizeX { get; }
-        public int SizeY { get; }
-        //private Rectangle rex;
-        public SmallTorusMap(int sizeX, int sizeY) : base(sizeX, sizeY) { }
-
-
+        public BigTorusMap(int sizeX, int sizeY) : base(sizeX, sizeY)
+        {
+        }
         public Point ComWrappers(Point p)
         {
-            
-            int wrapX = (p.X + SizeX) % SizeX; 
+
+            int wrapX = (p.X + SizeX) % SizeX;
             int wrapY = (p.Y + SizeY) % SizeY;
             Point wrappedp = new Point(wrapX, wrapY);
             return wrappedp;
-            
+
         }
         public override Point Next(Point p, Direction d)
         {
@@ -36,8 +32,7 @@ namespace Simulator.Maps
         {
             var newPoint = p.NextDiagonal(d);
             newPoint = ComWrappers(newPoint);
-            return newPoint; 
+            return newPoint;
         }
-
     }
 }

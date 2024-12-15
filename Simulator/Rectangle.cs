@@ -52,7 +52,7 @@ namespace Simulator
 
         public bool Contains(Point point) // sprawdza czy prostokąt zawiera podany punkt
         {
-            if (point.X >= X1 && point.X <= X2 && point.Y <= Y2 && point.Y >= Y1)
+            if (point.X >= 0 && point.X <= X2 && point.Y >= 0 && point.Y <= Y2)
             { return true; }
             else { return false; }
         }

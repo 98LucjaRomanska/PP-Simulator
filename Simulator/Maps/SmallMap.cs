@@ -10,21 +10,10 @@ public abstract class SmallMap : Map
         if (sizeX > 20) throw new ArgumentOutOfRangeException(nameof(SizeX), "Too wide");
         
         if (sizeY > 20) throw new ArgumentOutOfRangeException(nameof(SizeY), "Too long");
-        dictionary = new Dictionary<Point, List<IMappable>?>();
-        //struktura mapy zapamiętująca pozycje stworów 
-        for (int i = 0; i < sizeX; i++)
-        {
-            for (int j = 0; j < sizeY; j++)
-            {
-                dictionary.Add(new Point(i, j), new List<IMappable>());
-            }
-            //tablica wymiarów mapy na dictionary
-        }
-
     }
 
 
-
+    /*
     public override void Add(IMappable mappable, Point position)
     {
 
@@ -36,28 +25,6 @@ public abstract class SmallMap : Map
             dictionary[position] = new List<IMappable>();
         }
         dictionary[position].Add(mappable);
-        
-
-
-    }
-
-    public override void Remove(IMappable mappable, Point position)
-    {
-        
-        dictionary.Remove(position);
-    }
-
-    public override List<IMappable>? At(Point p)
-    {
-        if (!Exist(p))
-            throw new ArgumentException("Point is outside the map.");
-
-        return dictionary[p];
-    }
-
-    public override List<IMappable>? At(int x, int y)
-    {
-        return At(new Point(x, y));
-    }
+    }*/
     
 }
